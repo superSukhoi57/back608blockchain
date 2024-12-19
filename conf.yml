@@ -1,0 +1,6 @@
+db-blc-gene:
+  dbname: blc_gene
+  host: 10.14.1.2
+  port: 3307
+  user: root
+  password: c1608
