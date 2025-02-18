@@ -26,17 +26,17 @@ type Config struct {
 
 // 初始化配置
 func init() {
-	fmt.Println("执行初始化")
-	fmt.Println("没读取配置，没设置默认值时：这些值是空的：")
-	fmt.Printf("user:%v\n", viper.Get("user"))
-	fmt.Printf("dbname:%v\n", viper.Get("dbname"))
+	log.Println("执行初始化")
+	log.Println("没读取配置，没设置默认值时：这些值是空的：")
+	log.Printf("user:%v\n", viper.Get("user"))
+	log.Printf("dbname:%v\n", viper.Get("dbname"))
 	//设置默认值
 	viper.SetDefault("user", "root")
 	viper.SetDefault("dbname", "blc_name")
-	fmt.Println("这是设置了默认值的：")
+	log.Println("这是设置了默认值的：")
 	//读取配置
-	fmt.Printf("user:%v\n", viper.Get("user"))
-	fmt.Printf("dbname:%v\n", viper.Get("dbname"))
+	log.Printf("user:%v\n", viper.Get("user"))
+	log.Printf("dbname:%v\n", viper.Get("dbname"))
 
 	//TODO：路径还是在go.mod那里开始算！
 	viper.SetConfigFile("./conf.yml") // 指定配置文件路径
@@ -48,7 +48,7 @@ func init() {
 		panic(fmt.Errorf("Fatal error config file: %s \n", err))
 	}
 	//TODO:yml文件又缩进的通过下面的方式.读取配置
-	fmt.Printf("host:%v\n", viper.Get("db-blc-gene.host"))
+	log.Printf("host:%v\n", viper.Get("db-blc-gene.host"))
 }
 
 /*

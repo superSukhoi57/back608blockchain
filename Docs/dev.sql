@@ -53,6 +53,7 @@ create table if not exists users(
 ) engine=innodb default charset=utf8 comment='用户表';
 
 
+
 describe files;
 
 describe permission;

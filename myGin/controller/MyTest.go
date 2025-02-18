@@ -1,21 +1,37 @@
 package controller
 
 import (
+	"context"
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"github.com/minio/minio-go/v7"
 	"gobackend/myGin/gorm/DBLink"
 	"gobackend/myGin/gorm/DTO"
+	"gobackend/myGin/myMinio"
 	"gobackend/myGin/utils"
+	"io"
+	"log"
 	"net/http"
 	"time"
 )
 
+var Minio *minio.Client
+
+func init() {
+	Minio = myMinio.GetMinioClient()
+}
+
 func MyTestRoute(r *gin.Engine) {
+
 	mytest := r.Group("/test")
 	{
 		mytest.GET("/test", test)
 		mytest.POST("/encryption", encryptionTxt)
 		mytest.POST("/upload", uploadMydata)
+		mytest.GET("/getid", func(c *gin.Context) {
+			c.JSON(http.StatusOK, gin.H{"id": utils.GetID()})
+		})
+		mytest.GET("/minio", TestMinio)
 	}
 }
 
@@ -122,4 +138,28 @@ func NumberAndRevenue(c *gin.Context) {
 		"number":  number,
 		"revenue": revenue,
 	})
+}
+
+func TestMinio(c *gin.Context) {
+	// 获取对象
+	object, err := Minio.GetObject(context.Background(), "test", "1.png", minio.GetObjectOptions{})
+	if err != nil {
+		log.Println("minio获取对象出错！", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "无法获取对象"})
+		return
+	}
+	defer object.Close()
+
+	// 读取对象数据
+	data, err := io.ReadAll(object)
+	if err != nil {
+		log.Println("读取对象数据出错！", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": "无法读取对象数据"})
+		return
+	}
+
+	// 设置响应头
+	c.Header("Content-Type", "image/png")
+	c.Header("Content-Disposition", "inline; filename=1.png")
+	c.Data(http.StatusOK, "image/png", data)
 }

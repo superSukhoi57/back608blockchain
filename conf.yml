@@ -9,9 +9,14 @@ db-blc-gene:
 
 minio:
   host: 192.168.2.128
+  port: 9000
   access_key: admin
   secret_key: 12345678
 
+redis:
+  host: 192.168.2.128
+  port: 6379
+  password: 12345678
 
 
 

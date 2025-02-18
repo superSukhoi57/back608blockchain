@@ -3,9 +3,12 @@ package firstInit
 import (
 	"fmt"
 	"github.com/spf13/viper"
+	"log"
 )
 
 func init() {
+
+	log.Println("viper开始初始化！")
 	//TODO：路径还是在go.mod那里开始算！
 	viper.SetConfigFile("./conf.yml") // 指定配置文件路径
 	viper.SetConfigName("conf")       // 配置文件名称(无扩展名)
