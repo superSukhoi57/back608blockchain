@@ -1,6 +1,17 @@
 db-blc-gene:
   dbname: blc_gene
-  host: 10.14.1.2
-  port: 3307
+  #host: 10.14.1.2
+  host: 192.168.2.128
+  port: 3306
   user: root
-  password: c1608
+  password: newbee
+  #password: c16088
+
+minio:
+  host: 192.168.2.128
+  access_key: admin
+  secret_key: 12345678
+
+
+
+

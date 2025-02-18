@@ -17,7 +17,6 @@ func MyTestRoute(r *gin.Engine) {
 		mytest.POST("/encryption", encryptionTxt)
 		mytest.POST("/upload", uploadMydata)
 	}
-
 }
 
 // 测试服务器连通的

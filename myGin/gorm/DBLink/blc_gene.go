@@ -11,6 +11,10 @@ import (
 	"sync"
 )
 
+/*	fixme 这种初始化viper的方法适合只要用到这个配置文件一次的情况，如果需要到处都可以用，利用包init的特性
+创建一个包里面写viper init的函数，然后在main所有用到viper的包前导入这个包,或者在用到viper的包导入这个包+ "_"!
+*/
+
 type Config struct {
 	Database struct {
 		Host     string `json:"host"`
@@ -23,9 +27,13 @@ type Config struct {
 // 初始化配置
 func init() {
 	fmt.Println("执行初始化")
+	fmt.Println("没读取配置，没设置默认值时：这些值是空的：")
+	fmt.Printf("user:%v\n", viper.Get("user"))
+	fmt.Printf("dbname:%v\n", viper.Get("dbname"))
 	//设置默认值
 	viper.SetDefault("user", "root")
 	viper.SetDefault("dbname", "blc_name")
+	fmt.Println("这是设置了默认值的：")
 	//读取配置
 	fmt.Printf("user:%v\n", viper.Get("user"))
 	fmt.Printf("dbname:%v\n", viper.Get("dbname"))

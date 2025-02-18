@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"github.com/gin-gonic/gin"
 	"gobackend/myGin/controller"
+	_ "gobackend/myGin/firstInit" //确保这个在使用viper的地方前
 	"gobackend/myGin/gorm/DBLink"
-	_ "gobackend/myGin/gorm/DBLink"
+	_ "gobackend/myGin/minio"
 	"os"
 )
 
